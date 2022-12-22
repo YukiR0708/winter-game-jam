@@ -10,15 +10,19 @@ public class Mochi : MonoBehaviour
     [SerializeField] Transform _endMarker;
     [SerializeField] float _speed = 1.0f;
     [SerializeField] bool _otosu = false;
-    [SerializeField] float _time;
-    private float distance_two;
+    [SerializeField] float _time = 0;
+    private float _distance;
+    Rigidbody2D _rb;
+    [SerializeField] float _gravityScale = 1.0f;
     bool _player = false;
     /// <summary>Trueの時P1,Falseの時P2</summary>
     public bool Player { get => _player; set => _player = value; }
     void Start()
     {
+        _rb = GetComponent<Rigidbody2D>();
+        _rb.gravityScale = 0;
         //二点間の距離を代入
-        distance_two = Vector3.Distance(_startMarker.position, _endMarker.position) / 2;
+        _distance = Vector3.Distance(_startMarker.position, _endMarker.position) / 2;
         gameObject.transform.position = (_startMarker.position + _endMarker.position) / 2;
     }
     void Update()
@@ -38,6 +42,7 @@ public class Mochi : MonoBehaviour
             if (Input.GetButtonDown(_p1ButtonName))
             {
                 _otosu = true;
+                Otoshimasu();
             }
         }
         else
@@ -45,15 +50,18 @@ public class Mochi : MonoBehaviour
             if (Input.GetButtonDown(_p2ButtonName))
             {
                 _otosu = true;
+                Otoshimasu();
             }
         }
     }
-    /// <summary>
-    /// 左右移動する君
-    /// </summary>
+    void Otoshimasu()
+    {
+        _rb.gravityScale = _gravityScale;
+    }
+    /// <summary>左右移動する君</summary>
     void LRMove()
     {
         float sin = Mathf.Sin(_time);
-        this.transform.position = new Vector3(sin * distance_two, 0);
+        this.transform.position = new Vector3(sin * _distance, this.gameObject.transform.position.y);
     }
 }
