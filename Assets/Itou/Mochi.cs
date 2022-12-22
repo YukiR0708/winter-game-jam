@@ -10,6 +10,8 @@ public class Mochi : MonoBehaviour
     [SerializeField] Transform _endMarker;
     [SerializeField] float _speed = 1.0f;
     [SerializeField] bool _otosu = false;
+    /// <summary>True‚Ì‚Æ‚«—‚Æ‚µ‚Ä‚é,Flase‚Ì‚Ü‚¾ã‚É‚¢‚é</summary>
+    public bool Otosu { get => _otosu; set => _otosu = value; }
     [SerializeField] float _time = 0;
     private float _distance;
     Rigidbody2D _rb;
