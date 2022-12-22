@@ -9,6 +9,7 @@ public class Mochi : MonoBehaviour
     [SerializeField] Transform _startMarker;
     [SerializeField] Transform _endMarker;
     [SerializeField] float _speed = 1.0f;
+    [SerializeField] float _maxSpeed = 3.0f;
     [SerializeField] bool _otosu = false;
     /// <summary>True‚Ì‚Æ‚«—‚Æ‚µ‚Ä‚é,Flase‚Ì‚Ü‚¾ã‚É‚¢‚é</summary>
     public bool Otosu { get => _otosu; set => _otosu = value; }
@@ -20,7 +21,7 @@ public class Mochi : MonoBehaviour
     Vector3 _volocity;
     /// <summary>True‚ÌP1,False‚ÌP2</summary>
     public bool Player { get => _player; set => _player = value; }
-    int _mochiOrder;
+    [SerializeField]int _mochiOrder;
     public int MochiOrder { get => _mochiOrder; set => _mochiOrder = value; }
     void Start()
     {
@@ -84,7 +85,12 @@ public class Mochi : MonoBehaviour
     /// <summary>¶‰EˆÚ“®‚·‚éŒN</summary>
     void LRMove()
     {
-        _time += Time.deltaTime * _speed;
+        float m_speed = _speed + 0.1f * _mochiOrder;
+        if (m_speed > _maxSpeed)
+        {
+            m_speed = _maxSpeed;
+        }
+        _time += Time.deltaTime * m_speed;
         float sin = Mathf.Sin(_time);
         this.transform.position = new Vector3(sin * _distance, this.gameObject.transform.position.y);
     }
