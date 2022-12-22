@@ -15,10 +15,13 @@ public class Mochi : MonoBehaviour
     Rigidbody2D _rb;
     [SerializeField] float _gravityScale = 1.0f;
     bool _player = false;
+    Vector3 _volocity;
     /// <summary>Trueの時P1,Falseの時P2</summary>
     public bool Player { get => _player; set => _player = value; }
     void Start()
     {
+        FindObjectOfType<Pause>().PauseAction += PauseKun;
+        FindObjectOfType<Pause>().ResumeAction += ResumeKun;
         _rb = GetComponent<Rigidbody2D>();
         _rb.gravityScale = 0;
         //二点間の距離を代入
@@ -33,6 +36,23 @@ public class Mochi : MonoBehaviour
             LRMove();
         }
         PlayerChange();
+    }
+    void PauseKun()
+    {
+        _volocity = _rb.velocity;
+        _rb.velocity = new Vector2(0, 0);
+        _rb.gravityScale = 0;
+    }
+    void ResumeKun()
+    {
+        _rb.velocity = _volocity;
+        _volocity = new Vector2(0, 0);
+        _rb.gravityScale = _gravityScale;
+    }
+    void OnDestroy()
+    {
+        FindObjectOfType<Pause>().PauseAction -= PauseKun;
+        FindObjectOfType<Pause>().ResumeAction -= ResumeKun;
     }
     /// <summary>プレイヤーの切り替えで入力受け取りが違うようにした場所 </summary>
     void PlayerChange()
