@@ -15,9 +15,10 @@ public class StackMochiManager : MonoBehaviour
     Mochi _targetMochiMochi;
     [SerializeField] GameObject _mainCamera;
     [SerializeField, Tooltip("MochiInstateスクリプト")] MochiInstate _mochiInstate;
-    [SerializeField, Header("積んだ餠たち")] List<GameObject> _stackedMochiList = new List<GameObject>();
+    [SerializeField, Header("積んだ餠たち")] private List<GameObject> _stackedMochiList = new List<GameObject>();
+    public List<GameObject> StackedMochiList { get { return _stackedMochiList; } }
     [Tooltip("最後に積まれた餠")] private GameObject _lastStackMochi;
-    [Tooltip("積まれた餠の数")] IntReactiveProperty _stackMochiCount;
+    [SerializeField,Tooltip("積まれた餠の数")] IntReactiveProperty _stackMochiCount;
     public GameObject LastStackMochi { get { return _lastStackMochi; } }
 
     void Awake()
@@ -35,6 +36,13 @@ public class StackMochiManager : MonoBehaviour
 
     void Start()
     {
+        //_stackmochiCountの値が変化したら呼ばれる
+        _stackMochiCount.Subscribe(m =>
+        {
+            //_lastStackMochiをUpdateするa
+            _mainCamera.transform.position = new Vector2(_mainCamera.transform.position.x, _stackedMochiList[m - 1].transform.position.y);
+        }).AddTo(this);
+
         _targetMochi = _mochiInstate.OneP();
         _targetMochiRb = _targetMochi.GetComponent<Rigidbody2D>();
         _targetMochiMochi = _targetMochi.GetComponent<Mochi>();
@@ -43,28 +51,21 @@ public class StackMochiManager : MonoBehaviour
 
     void Update()
     {
-        if (_targetMochiRb.velocity.magnitude == 0 && _targetMochiMochi.Otosu)
+        if (_targetMochiMochi.Otosu && _targetMochiRb.velocity.magnitude == 0)
         {
             Debug.Log("置けた");
             //リストに追加
             _stackedMochiList.Add(_targetMochi);
-            //ターゲット変更
+            //リストに追加した最新の餅を_lastStackMochiに格納する
             _lastStackMochi = _targetMochi;
-            _mochiInstate.IsMochiIn = false;
-            _targetMochi = _mochiInstate.OneP();
-            _targetMochiRb = _targetMochi.GetComponent<Rigidbody2D>();
-            _targetMochiMochi = _targetMochi.GetComponent<Mochi>();
         }
     }
 
-    /// <summary>一番上の餠を変数に入れる</summary>
-    void UpdateLastMochi()
+    void TargetChange()
     {
-        //_stackmochiCountの値が変化したら呼ばれる
-        _stackMochiCount.Subscribe(m =>
-        {
-            //_lastStackMochiをUpdateするa
-            _mainCamera.transform.position = new Vector2(_mainCamera.transform.position.x , _stackedMochiList[m - 1].transform.position.y);
-        }).AddTo(this);
+        _mochiInstate.IsMochiIn = false;
+        _targetMochi = _mochiInstate.OneP();
+        _targetMochiRb = _targetMochi.GetComponent<Rigidbody2D>();
+        _targetMochiMochi = _targetMochi.GetComponent<Mochi>();
     }
 }
