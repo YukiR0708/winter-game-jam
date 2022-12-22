@@ -10,7 +10,7 @@ public class MochiInstate : MonoBehaviour
     List<GameObject> _mochis = new List<GameObject>();
     [SerializeField, Header("1Pの餅の出現場所・協力のときはこの出現場所だけ使う")] Transform _onePpos;
     [SerializeField, Header("2Pの餅の出現場所")] Transform _twoPpos;
-    //[SerializeField, Header("残りのお餅が何個かどうかのUIText")] Text _mochiCountText;
+    [SerializeField, Header("残りのお餅が何個かどうかのUIText")] Text _mochiCountText;
     /// <summary>出す餅のインデックス</summary>
     int _index = 0;
     /// <summary>出す餅のインデックス</summary>
@@ -37,7 +37,11 @@ public class MochiInstate : MonoBehaviour
         }
         _index = 0;
         _index2 = 0;
-        //_mochiCountText.text = $"{_mochiNum}";
+        
+        if(_gameManager.state == GameManager.GameStatus.Kyoryoku)
+        {
+            _mochiCountText.text = $"{_mochiNum}";
+        }
     }
 
     private void Update()
@@ -54,8 +58,12 @@ public class MochiInstate : MonoBehaviour
         GameObject go = Instantiate(_mochi[_index], _onePpos.position, Quaternion.identity);
         IsMochiIn = true;
         _index++;
+        if (_gameManager.state == GameManager.GameStatus.Kyoryoku)
+        {
+            _mochiCountText.text = $"{_mochiNum - _index}";
+        }
         Mochi mochi = go.GetComponent<Mochi>();
-        //mochi.
+        mochi.MochiOrder = _index;
         mochi.Player = !mochi.Player;
         _gameManager.PlayerChange(mochi.Player);
         return go;
@@ -65,6 +73,8 @@ public class MochiInstate : MonoBehaviour
     {
         GameObject go = Instantiate(_mochi[_index2], _twoPpos.position, Quaternion.identity);
         _index2++;
+        Mochi mochi = go.GetComponent<Mochi>();
+        mochi.MochiOrder = _index2;
         return go;
     }
 
