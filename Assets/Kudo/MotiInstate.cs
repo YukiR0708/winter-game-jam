@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MochiInstate : MonoBehaviour
 {
-    [SerializeField, Header("出す餅の合計数")] int motiNum;
+    [SerializeField, Header("出す餅の合計数")] int _mochiNum;
     GameObject[] _mochi;
     List<GameObject> _mochis = new List<GameObject>();
     [SerializeField, Header("1Pの餅の出現場所・協力のときはこの出現場所だけ使う")] Transform _onePpos;
@@ -13,7 +13,7 @@ public class MochiInstate : MonoBehaviour
     int _index = 0;
     /// <summary>出す餅のインデックス</summary>
     int _index2 = 0;
-    GameManager gameManager;
+    GameManager _gameManager;
 
     bool _isMochiIn = false;
     /// <summary>Trueの時、餅召喚してある・Falseの時、餅が置き終わった</summary>
@@ -25,10 +25,10 @@ public class MochiInstate : MonoBehaviour
     void Start()
     {
         IsMochiIn = false;
-        gameManager = FindObjectOfType<GameManager>();
-        //FindObjectOfType<>
+        _gameManager = FindObjectOfType<GameManager>();
+        _mochiNum = FindObjectOfType<SceneChange>().Purpose;
         //リストに前もって出す餅を全て入れておく
-        for (var i = 0; i < motiNum; i++)
+        for (var i = 0; i < _mochiNum; i++)
         {
             int n = Random.Range(0, _mochi.Length);
             _mochis.Add(_mochi[n]);
@@ -39,10 +39,10 @@ public class MochiInstate : MonoBehaviour
 
     private void Update()
     {
-        if (_index == motiNum && !IsMochiIn)
+        if (_index == _mochiNum && !IsMochiIn)
         {
-            gameManager.state &= ~GameManager.GameStatus.Kyoryoku;
-            gameManager.state = gameManager.state | GameManager.GameStatus.Clear;
+            _gameManager.state &= ~GameManager.GameStatus.Kyoryoku;
+            _gameManager.state = _gameManager.state | GameManager.GameStatus.Clear;
         }
     }
 
