@@ -41,7 +41,7 @@ public class StackMochiManager : MonoBehaviour
         _stackMochiCount.Subscribe(m =>
         {
             //_lastStackMochi‚ðUpdate‚·‚éa
-            _mainCamera.transform.position = new Vector2(_mainCamera.transform.position.x, _stackedMochiList[m - 1].transform.position.y);
+            _mainCamera.transform.position = new Vector3(_mainCamera.transform.position.x, _stackedMochiList[m - 1].transform.position.y, _mainCamera.transform.position.z);
         }).AddTo(this);
 
         _targetMochi = _mochiInstate.OneP();
