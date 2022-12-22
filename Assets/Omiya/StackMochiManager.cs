@@ -61,7 +61,7 @@ public class StackMochiManager : MonoBehaviour
         }
     }
 
-    void TargetChange()
+    public void TargetChange()
     {
         _mochiInstate.IsMochiIn = false;
         _targetMochi = _mochiInstate.OneP();
