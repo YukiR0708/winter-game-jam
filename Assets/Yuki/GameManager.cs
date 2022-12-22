@@ -2,13 +2,14 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
-    //***c‚èŠÔŠÖŒW***
+    
     public GameStatus state = GameStatus.Title;
-
+    //***c‚èŠÔŠÖŒW***
     [SerializeField] float _time = default;
+    [SerializeField] 
 
     //***ƒvƒŒƒCƒ„[‚ÌUIØ‘ÖŠÖŒW***
     [SerializeField] GameObject _player1 = default;
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (state.HasFlag(GameStatus.Battle) && !state.HasFlag(GameStatus.Pause)
+        if (state.HasFlag(GameStatus.Battle) && !state.HasFlag(GameStatus.Pause))
         {
 
         }
