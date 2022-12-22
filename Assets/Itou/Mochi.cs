@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 public class Mochi : MonoBehaviour
 {
@@ -56,7 +57,6 @@ public class Mochi : MonoBehaviour
         {
             if (Input.GetButtonDown(_p1ButtonName))
             {
-                _otosu = true;
                 Otoshimasu();
             }
         }
@@ -64,7 +64,6 @@ public class Mochi : MonoBehaviour
         {
             if (Input.GetButtonDown(_p2ButtonName))
             {
-                _otosu = true;
                 Otoshimasu();
             }
         }
@@ -72,6 +71,8 @@ public class Mochi : MonoBehaviour
     void Otoshimasu()
     {
         _rb.bodyType = RigidbodyType2D.Dynamic;
+        Observable.NextFrame().Subscribe(_ => { }).AddTo(this);
+        _otosu = true;
     }
     /// <summary>¶‰EˆÚ“®‚·‚éŒN</summary>
     void LRMove()
