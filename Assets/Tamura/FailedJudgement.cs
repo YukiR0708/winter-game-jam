@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 /// <summary>—‚¿‚½”»’è@Trigger‚Å‚àCollision‚Å‚à‚¢‚¯‚Ü‚·</summary>
 public class FailedJudgement : MonoBehaviour
@@ -36,6 +35,7 @@ public class FailedJudgement : MonoBehaviour
                 if(_player1.StackedMochiList.Contains(go))
                 {
                     _player1.StackedMochiList.Remove(go);
+                    _player1.TakeListCount();
                 }
 
                 //Ÿ‚Ì‚à‚¿¢Š«
@@ -47,6 +47,7 @@ public class FailedJudgement : MonoBehaviour
                 if (_player2.StackedMochiList.Contains(go))
                 {
                     _player2.StackedMochiList.Remove(go);
+                    _player2.TakeListCount();
                 }
 
                 //Ÿ‚Ì‚à‚¿¢Š«
@@ -78,6 +79,7 @@ public class FailedJudgement : MonoBehaviour
                 if (_player1.StackedMochiList.Contains(go))
                 {
                     _player1.StackedMochiList.Remove(go);
+                    _player1.TakeListCount();
                 }
 
                 //Ÿ‚Ì‚à‚¿¢Š«
@@ -89,6 +91,7 @@ public class FailedJudgement : MonoBehaviour
                 if (_player2.StackedMochiList.Contains(go))
                 {
                     _player2.StackedMochiList.Remove(go);
+                    _player2.TakeListCount();
                 }
 
                 //Ÿ‚Ì‚à‚¿¢Š«
