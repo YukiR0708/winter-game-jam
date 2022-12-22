@@ -5,7 +5,7 @@ using UnityEngine;
 public class MochiInstate : MonoBehaviour
 {
     [SerializeField, Header("出す餅の合計数")] int _mochiNum;
-    GameObject[] _mochi;
+    [SerializeField] GameObject[] _mochi;
     List<GameObject> _mochis = new List<GameObject>();
     [SerializeField, Header("1Pの餅の出現場所・協力のときはこの出現場所だけ使う")] Transform _onePpos;
     [SerializeField, Header("2Pの餅の出現場所")] Transform _twoPpos;
@@ -53,6 +53,7 @@ public class MochiInstate : MonoBehaviour
         _index++;
         Mochi mochi = go.GetComponent<Mochi>();
         mochi.Player = !mochi.Player;
+        _gameManager.PlayerChange(mochi.Player);
         return go;
     }
 
