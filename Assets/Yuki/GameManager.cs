@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public GameStatus state = GameStatus.Title;
     //***残り時間関係***
     [SerializeField] float _time = default;
-    [SerializeField] 
+    [SerializeField] Text _timeText = default;
 
     //***プレイヤーのUI切替関係***
     [SerializeField] GameObject _player1 = default;
@@ -42,7 +42,8 @@ public class GameManager : MonoBehaviour
     {
         if (state.HasFlag(GameStatus.Battle) && !state.HasFlag(GameStatus.Pause))
         {
-
+            _time -= Time.deltaTime;
+            _timeText.text = _time.ToString("D2");
         }
     }
 
