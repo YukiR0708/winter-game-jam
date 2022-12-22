@@ -36,6 +36,9 @@ public class StackMochiManager : MonoBehaviour
 
     void Start()
     {
+        Observable.NextFrame().Subscribe(_ =>
+        {
+        }).AddTo(this);
         TakeListCount();
         //_stackmochiCount‚Ì’l‚ª•Ï‰»‚µ‚½‚çŒÄ‚Î‚ê‚é
         _stackMochiCount.Subscribe(m =>
