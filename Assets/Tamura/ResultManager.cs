@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+/// <summary>ゲームが終わった時に、みかん落ちてきてリザルト画面が出る</summary>
 public class ResultManager : MonoBehaviour
 {
     GameManager _gameManager;
