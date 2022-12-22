@@ -5,10 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
-    
+
     public GameStatus state = GameStatus.Title;
     //***残り時間関係***
     [SerializeField] float _time = 180f;
+    float _oldTime = default;
     [SerializeField] Text _timeText = default;
 
     //***プレイヤーのUI切替関係***
@@ -44,7 +45,16 @@ public class GameManager : MonoBehaviour
         {
             _time -= Time.deltaTime;
             _timeText.text = _time.ToString("f2");
+            //時間切れになったらクリア
+            if (_oldTime > 0 && _time <= 0)
+            {
+                state = GameStatus.Clear;
+            }
+            _oldTime = _time;
         }
+
+
+
     }
 
     /// <summary>各もちから呼んでもらう</summary>
