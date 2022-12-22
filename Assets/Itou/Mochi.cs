@@ -28,7 +28,7 @@ public class Mochi : MonoBehaviour
         FindObjectOfType<Pause>().PauseAction += PauseKun;
         FindObjectOfType<Pause>().ResumeAction += ResumeKun;
         _rb = GetComponent<Rigidbody2D>();
-        _rb.gravityScale = 0;
+        _rb.bodyType = RigidbodyType2D.Static;
         //二点間の距離を代入
         _distance = Vector3.Distance(_startMarker.position, _endMarker.position) / 2;
         gameObject.transform.position = (_startMarker.position + _endMarker.position) / 2;
@@ -43,16 +43,11 @@ public class Mochi : MonoBehaviour
     }
     void PauseKun()
     {
-        _velocity = _rb.velocity;
-        _rb.velocity = new Vector2(0, 0);
-        _rb.gravityScale = 0;
+        _rb.bodyType = RigidbodyType2D.Static;
     }
     void ResumeKun()
     {
-        _rb.velocity = _velocity;
-        _velocity = new Vector2(0, 0);
-        _rb.velocity = new Vector3(0, 0.005f, 0);
-        _rb.gravityScale = _gravityScale;
+        _rb.bodyType = RigidbodyType2D.Dynamic;
     }
     /// <summary>プレイヤーの切り替えで入力受け取りが違うようにした場所 </summary>
     void PlayerChange()
@@ -76,8 +71,7 @@ public class Mochi : MonoBehaviour
     }
     void Otoshimasu()
     {
-        _rb.velocity = new Vector3(0, 0.005f, 0);
-        _rb.gravityScale = _gravityScale;
+        _rb.bodyType = RigidbodyType2D.Dynamic;
     }
     /// <summary>左右移動する君</summary>
     void LRMove()
