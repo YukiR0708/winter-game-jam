@@ -24,12 +24,13 @@ public class ResultManager : MonoBehaviour
         if (!_isShownResult)
         {
 
-            if (_gameManager.state.HasFlag(GameManager.GameStatus.Clear))
-            {
-                //クリアしたときのやつ
-                OrangeFall(_clear);
-            }
-            else if (_gameManager.state.HasFlag(GameManager.GameStatus.Failed))
+            //if (_gameManager.state.HasFlag(GameManager.GameStatus.Clear))
+            //{
+            //    //クリアしたときのやつ
+            //    OrangeFall(_clear);
+            //}
+            //else
+            if (_gameManager.state.HasFlag(GameManager.GameStatus.Failed))
             {
                 //失敗したときのやつ
                 OrangeFall(_failed);

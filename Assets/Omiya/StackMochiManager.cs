@@ -61,14 +61,20 @@ public class StackMochiManager : MonoBehaviour
 
     void Update()
     {
-        if (_targetMochiMochi.Otosu && _targetMochiRb.velocity.magnitude == 0)
+        if (_targetMochiMochi.Otosu) 
         {
-            Debug.Log("置けた");
-            //リストに追加
-            _stackedMochiList.Add(_targetMochi);
-            //リストに追加した最新の餅を_lastStackMochiに格納する
-            _lastStackMochi = _targetMochi;
-            TakeListCount();
+
+            if(_targetMochiRb.velocity.magnitude == 0)
+            {
+                Debug.Log("置けた");
+                //リストに追加
+                _stackedMochiList.Add(_targetMochi);
+                //リストに追加した最新の餅を_lastStackMochiに格納する
+                _lastStackMochi = _targetMochi;
+                TakeListCount();
+                TargetChange();
+            }
+            
         }
     }
 
