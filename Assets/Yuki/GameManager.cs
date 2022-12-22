@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         if (state.HasFlag(GameStatus.Battle) && !state.HasFlag(GameStatus.Pause))
         {
             _time -= Time.deltaTime;
-            _timeText.text = _time.ToString("D2");
+            _timeText.text = _time.ToString("f2");
         }
     }
 
