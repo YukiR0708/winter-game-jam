@@ -2,39 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MotiInstate : MonoBehaviour
+public class MochiInstate : MonoBehaviour
 {
     [SerializeField, Header("出す餅の合計数")] int motiNum;
-    GameObject[] moti;
-    List<GameObject> motis = new List<GameObject>();
-    [SerializeField, Header("1Pの餅の出現場所・協力のときはこの出現場所だけ使う")] Transform OnePpos;
-    [SerializeField, Header("2Pの餅の出現場所")] Transform TwoPpos;
-    int count = 0;
-    int count2 = 0;
+    GameObject[] _mochi;
+    List<GameObject> _mochis = new List<GameObject>();
+    [SerializeField, Header("1Pの餅の出現場所・協力のときはこの出現場所だけ使う")] Transform _onePpos;
+    [SerializeField, Header("2Pの餅の出現場所")] Transform _twoPpos;
+    /// <summary>出す餅のインデックス</summary>
+    int _index = 0;
+    /// <summary>出す餅のインデックス</summary>
+    int _index2 = 0;
     GameManager gameManager;
-    public bool isMochiIn = false;
+
+    bool _isMochiIn = false;
+    /// <summary>Trueの時、餅召喚してある・Falseの時、餅が置き終わった</summary>
+    public bool IsMochiIn { get { return _isMochiIn; } set { _isMochiIn = value;} }
     
 
    
     // Start is called before the first frame update
     void Start()
     {
-        isMochiIn = false;
+        IsMochiIn = false;
         gameManager = FindObjectOfType<GameManager>();
         //FindObjectOfType<>
         //リストに前もって出す餅を全て入れておく
         for (var i = 0; i < motiNum; i++)
         {
-            int n = Random.Range(0, moti.Length);
-            motis.Add(moti[n]);
+            int n = Random.Range(0, _mochi.Length);
+            _mochis.Add(_mochi[n]);
         }
-        count = 0;
-        count2 = 0;
+        _index = 0;
+        _index2 = 0;
     }
 
     private void Update()
     {
-        if (count == motiNum && !isMochiIn)
+        if (_index == motiNum && !IsMochiIn)
         {
             gameManager.state &= ~GameManager.GameStatus.Kyoryoku;
             gameManager.state = gameManager.state | GameManager.GameStatus.Clear;
@@ -43,9 +48,9 @@ public class MotiInstate : MonoBehaviour
 
     public GameObject OneP()
     {
-        GameObject go = Instantiate(moti[count], OnePpos.position, Quaternion.identity);
-        isMochiIn = true;
-        count++;
+        GameObject go = Instantiate(_mochi[_index], _onePpos.position, Quaternion.identity);
+        IsMochiIn = true;
+        _index++;
         Mochi mochi = go.GetComponent<Mochi>();
         mochi.Player = !mochi.Player;
         return go;
@@ -53,10 +58,8 @@ public class MotiInstate : MonoBehaviour
 
     public GameObject SecoundP()
     {
-        GameObject go = Instantiate(moti[count2], TwoPpos.position, Quaternion.identity);
-        
-        
-        count2++;
+        GameObject go = Instantiate(_mochi[_index2], _twoPpos.position, Quaternion.identity);
+        _index2++;
         return go;
     }
 }

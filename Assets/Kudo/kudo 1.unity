@@ -154,8 +154,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motiNum: 0
   moti: []
+  motis: []
   OnePpos: {fileID: 1566489157}
   TwoPpos: {fileID: 1461766474}
+  count: 0
+  count2: 0
+  gameManager: {fileID: 0}
+  isMochiIn: 0
 --- !u!4 &1461766474
 Transform:
   m_ObjectHideFlags: 0
@@ -301,5 +306,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motiNum: 0
   moti: []
+  motis: []
   OnePpos: {fileID: 0}
   TwoPpos: {fileID: 0}
+  count: 0
+  count2: 0
+  gameManager: {fileID: 0}
+  isMochiIn: 0
