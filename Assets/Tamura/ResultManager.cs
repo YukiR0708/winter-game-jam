@@ -25,13 +25,13 @@ public class ResultManager : MonoBehaviour
 
             if (_gameManager.state.HasFlag(GameManager.GameStatus.Clear))
             {
-                OrangeFall(_clear);
                 //ƒNƒŠƒA‚µ‚½‚Æ‚«‚Ì‚â‚Â
+                OrangeFall(_clear);
             }
             else if (_gameManager.state.HasFlag(GameManager.GameStatus.Failed))
             {
-                OrangeFall(_failed);
                 //Ž¸”s‚µ‚½‚Æ‚«‚Ì‚â‚Â
+                OrangeFall(_failed);
             }
 
         }
