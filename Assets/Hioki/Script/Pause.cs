@@ -13,6 +13,8 @@ public class Pause : MonoBehaviour
 
     /// <summary>ポーズするときの動きを入れてもらう</summary>
     public Action PauseAction { get => _pause; set => _pause = value; }
+
+    /// <summary>ポーズ再開するときの動きを入れてもらう</summary>
     public Action ResumeAction { get => _resume; set => _resume = value; }
 
     private void Update()
@@ -30,7 +32,7 @@ public class Pause : MonoBehaviour
         }
     }
 
-    /// <summary>ポーズぼたんにつける</summary>
+    /// <summary>ポーズボタンにつける</summary>
     public void OnPause()
     {
         if (_pause != null)
