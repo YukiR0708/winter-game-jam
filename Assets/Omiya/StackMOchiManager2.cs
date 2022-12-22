@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public class StackMOchiManager1 : MonoBehaviour
-{ 
+public class StackMOchiManager2 : MonoBehaviour
+{
     GameObject _targetMochi;
     Rigidbody2D _targetMochiRb;
     Mochi _targetMochiMochi;
@@ -19,7 +19,7 @@ public class StackMOchiManager1 : MonoBehaviour
     [SerializeField] int _mochiCameraMin;
 
 
-   
+
 
     void Start()
     {
@@ -59,7 +59,7 @@ public class StackMOchiManager1 : MonoBehaviour
     public void TargetChange()
     {
         _mochiInstate.IsMochiIn = false;
-        _targetMochi = _mochiInstate.OneP();
+        _targetMochi = _mochiInstate.SecoundP();
         _targetMochiRb = _targetMochi.GetComponent<Rigidbody2D>();
         _targetMochiMochi = _targetMochi.GetComponent<Mochi>();
     }

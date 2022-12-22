@@ -7,7 +7,7 @@ public class MochiInstate : MonoBehaviour
 {
     [SerializeField, Header("出す餅の合計数")] int _mochiNum;
     [SerializeField] GameObject[] _mochi;
-    List<GameObject> _mochis = new List<GameObject>();
+    [SerializeField]List<GameObject> _mochis = new List<GameObject>();
     [SerializeField, Header("1Pの餅の出現場所・協力のときはこの出現場所だけ使う")] Transform _onePpos;
     [SerializeField, Header("2Pの餅の出現場所")] Transform _twoPpos;
     [SerializeField, Header("残りのお餅が何個かどうかのUIText")] Text _mochiCountText;
@@ -71,7 +71,7 @@ public class MochiInstate : MonoBehaviour
 
     public GameObject SecoundP()
     {
-        GameObject go = Instantiate(_mochi[_index2], _twoPpos.position, Quaternion.identity);
+        GameObject go = Instantiate(_mochis[_index2], _twoPpos.position, Quaternion.identity);
         _index2++;
         Mochi mochi = go.GetComponent<Mochi>();
         mochi.MochiOrder = _index2;
