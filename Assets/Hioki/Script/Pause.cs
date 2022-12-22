@@ -7,6 +7,7 @@ public class Pause : MonoBehaviour
 {
     event Action _pause;
     event Action _resume;
+
     //trueの時ポーズしてる
     bool _isPause;
 
@@ -16,9 +17,9 @@ public class Pause : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel"))
         {
-            if(!_isPause)
+            if (!_isPause)
             {
                 OnPause();
             }
@@ -32,20 +33,20 @@ public class Pause : MonoBehaviour
     /// <summary>ポーズぼたんにつける</summary>
     public void OnPause()
     {
-        if (PauseAction != null)
+        if (_pause != null)
         {
-            PauseAction.Invoke();
+            _pause.Invoke();
             _isPause = true;
         }
     }
 
+    /// <summary>ポーズやめるボタンにつける</summary>
     public void Resume()
     {
-        if(ResumeAction != null)
+        if (_resume != null)
         {
-            ResumeAction.Invoke();
+            _resume.Invoke();
             _isPause = false;
         }
     }
-
 }
