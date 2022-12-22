@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour
     //***プレイヤーのUI切替関係***
     [SerializeField] GameObject _player1 = default;
     [SerializeField] GameObject _player2 = default;
-    [Tooltip("1Pのスプライトレンダラー")] SpriteRenderer _p1SpriteRenderer = default;
-    [Tooltip("2Pのスプライトレンダラー")] SpriteRenderer _p2SpriteRenderer = default;
+    [Tooltip("1Pのスプライトレンダラー")] Image _p1SpriteRenderer = default;
+    [Tooltip("2Pのスプライトレンダラー")] Image _p2SpriteRenderer = default;
 
 
     /// <summary>現在のゲーム状態管理用</summary>
@@ -35,8 +35,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //***プレイヤーのUI切替***
-        _p1SpriteRenderer = _player1.GetComponent<SpriteRenderer>();
-        _p2SpriteRenderer = _player2.GetComponent<SpriteRenderer>();
+        _p1SpriteRenderer = _player1.GetComponent<Image>();
+        _p2SpriteRenderer = _player2.GetComponent<Image>();
     }
 
     void Update()

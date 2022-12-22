@@ -55,7 +55,7 @@ public class MochiInstate : MonoBehaviour
 
     public GameObject OneP()
     {
-        GameObject go = Instantiate(_mochi[_index], _onePpos.position, Quaternion.identity);
+        GameObject go = Instantiate(_mochis[_index], _onePpos.position, Quaternion.identity);
         IsMochiIn = true;
         _index++;
         if (_gameManager.state == GameManager.GameStatus.Kyoryoku)

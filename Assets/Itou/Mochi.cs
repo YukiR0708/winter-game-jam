@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 public class Mochi : MonoBehaviour
 {
@@ -18,17 +19,17 @@ public class Mochi : MonoBehaviour
     Rigidbody2D _rb;
     [SerializeField] float _gravityScale = 1.0f;
     bool _player = false;
-    Vector3 _volocity;
+    Vector3 _velocity;
     /// <summary>Trueの時P1,Falseの時P2</summary>
     public bool Player { get => _player; set => _player = value; }
-    [SerializeField]int _mochiOrder;
+    [SerializeField] int _mochiOrder;
     public int MochiOrder { get => _mochiOrder; set => _mochiOrder = value; }
     void Start()
     {
         FindObjectOfType<Pause>().PauseAction += PauseKun;
         FindObjectOfType<Pause>().ResumeAction += ResumeKun;
         _rb = GetComponent<Rigidbody2D>();
-        _rb.gravityScale = 0;
+        _rb.bodyType = RigidbodyType2D.Static;
         //二点間の距離を代入
         _distance = Vector3.Distance(_startMarker.position, _endMarker.position) / 2;
         gameObject.transform.position = (_startMarker.position + _endMarker.position) / 2;
@@ -43,15 +44,11 @@ public class Mochi : MonoBehaviour
     }
     void PauseKun()
     {
-        _volocity = _rb.velocity;
-        _rb.velocity = new Vector2(0, 0);
-        _rb.gravityScale = 0;
+        _rb.bodyType = RigidbodyType2D.Static;
     }
     void ResumeKun()
     {
-        _rb.velocity = _volocity;
-        _volocity = new Vector2(0, 0);
-        _rb.gravityScale = _gravityScale;
+        _rb.bodyType = RigidbodyType2D.Dynamic;
     }
     /// <summary>プレイヤーの切り替えで入力受け取りが違うようにした場所 </summary>
     void PlayerChange()
@@ -60,7 +57,6 @@ public class Mochi : MonoBehaviour
         {
             if (Input.GetButtonDown(_p1ButtonName))
             {
-                _otosu = true;
                 Otoshimasu();
             }
         }
@@ -68,14 +64,15 @@ public class Mochi : MonoBehaviour
         {
             if (Input.GetButtonDown(_p2ButtonName))
             {
-                _otosu = true;
                 Otoshimasu();
             }
         }
     }
     void Otoshimasu()
     {
-        _rb.gravityScale = _gravityScale;
+        _rb.bodyType = RigidbodyType2D.Dynamic;
+        Observable.NextFrame().Subscribe(_ => { }).AddTo(this);
+        _otosu = true;
     }
     /// <summary>左右移動する君</summary>
     void LRMove()
