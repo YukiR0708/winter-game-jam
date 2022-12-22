@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    //***残り時間関係***
     public GameStatus state = GameStatus.Title;
+
+    [SerializeField] float _time = default;
 
     //***プレイヤーのUI切替関係***
     [SerializeField] GameObject _player1 = default;
@@ -19,13 +22,12 @@ public class GameManager : MonoBehaviour
     public enum GameStatus
     {
         Title = 1 << 0,  //タイトル,操作説明等 
-        InGame = 1 << 1, //ゲーム
-        Kyoryoku = 1 << 2, //協力モード
-        Battle = 1 << 3, //バトル
-        Pause = 1 << 4, //ポーズ
-        UnPause = 1 << 5,    //ポーズ解除
-        Clear = 1 << 6, //クリア
-        Failed = 1 << 7, //失敗
+        Kyoryoku = 1 << 1, //協力モード
+        Battle = 1 << 2, //バトル
+        Pause = 1 << 3, //ポーズ
+        UnPause = 1 << 4,    //ポーズ解除
+        Clear = 1 << 5, //クリア
+        Failed = 1 << 6, //失敗
     }
 
     void Start()
@@ -37,6 +39,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (state.HasFlag(GameStatus.Battle) && !state.HasFlag(GameStatus.Pause)
+        {
+
+        }
     }
 
     /// <summary>各もちから呼んでもらう</summary>
