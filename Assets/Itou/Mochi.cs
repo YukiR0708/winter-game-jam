@@ -53,11 +53,6 @@ public class Mochi : MonoBehaviour
         _volocity = new Vector2(0, 0);
         _rb.gravityScale = _gravityScale;
     }
-    void OnDestroy()
-    {
-        FindObjectOfType<Pause>().PauseAction -= PauseKun;
-        FindObjectOfType<Pause>().ResumeAction -= ResumeKun;
-    }
     /// <summary>ƒvƒŒƒCƒ„[‚ÌØ‚è‘Ö‚¦‚Å“ü—Íó‚¯æ‚è‚ªˆá‚¤‚æ‚¤‚É‚µ‚½êŠ </summary>
     void PlayerChange()
     {
