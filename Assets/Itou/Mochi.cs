@@ -18,10 +18,10 @@ public class Mochi : MonoBehaviour
     Rigidbody2D _rb;
     [SerializeField] float _gravityScale = 1.0f;
     bool _player = false;
-    Vector3 _volocity;
+    Vector3 _velocity;
     /// <summary>Trueの時P1,Falseの時P2</summary>
     public bool Player { get => _player; set => _player = value; }
-    [SerializeField]int _mochiOrder;
+    [SerializeField] int _mochiOrder;
     public int MochiOrder { get => _mochiOrder; set => _mochiOrder = value; }
     void Start()
     {
@@ -43,14 +43,15 @@ public class Mochi : MonoBehaviour
     }
     void PauseKun()
     {
-        _volocity = _rb.velocity;
+        _velocity = _rb.velocity;
         _rb.velocity = new Vector2(0, 0);
         _rb.gravityScale = 0;
     }
     void ResumeKun()
     {
-        _rb.velocity = _volocity;
-        _volocity = new Vector2(0, 0);
+        _rb.velocity = _velocity;
+        _velocity = new Vector2(0, 0);
+        _rb.velocity = new Vector3(0, 0.005f, 0);
         _rb.gravityScale = _gravityScale;
     }
     /// <summary>プレイヤーの切り替えで入力受け取りが違うようにした場所 </summary>
@@ -75,6 +76,7 @@ public class Mochi : MonoBehaviour
     }
     void Otoshimasu()
     {
+        _rb.velocity = new Vector3(0, 0.005f, 0);
         _rb.gravityScale = _gravityScale;
     }
     /// <summary>左右移動する君</summary>
