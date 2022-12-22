@@ -21,6 +21,9 @@ public class StackMochiManager : MonoBehaviour
     [SerializeField,Tooltip("積まれた餠の数")] IntReactiveProperty _stackMochiCount;
     public GameObject LastStackMochi { get { return _lastStackMochi; } }
 
+    [SerializeField] int _mochiCameraMin;
+    
+
     void Awake()
     {
         //シングルトンの処理
@@ -37,15 +40,18 @@ public class StackMochiManager : MonoBehaviour
     void Start()
     {
         Observable.NextFrame().Subscribe(_ =>
-        {
-        }).AddTo(this);
+        {}).AddTo(this);
         TakeListCount();
         //_stackmochiCountの値が変化したら呼ばれる
         _stackMochiCount.Subscribe(m =>
         {
-            //_lastStackMochiをUpdateするa
-            _mainCamera.transform.position = new Vector3(_mainCamera.transform.position.x, _stackedMochiList[m - 1].transform.position.y, _mainCamera.transform.position.z);
-        }).AddTo(this);
+            //_lastStackMochiをUpdateする
+            if(m > _mochiCameraMin)
+            {
+                _mainCamera.transform.position = new Vector3(_mainCamera.transform.position.x, _stackedMochiList[m - 1].transform.position.y, _mainCamera.transform.position.z);
+            }
+        }
+            ).AddTo(this);
 
         _targetMochi = _mochiInstate.OneP();
         _targetMochiRb = _targetMochi.GetComponent<Rigidbody2D>();
