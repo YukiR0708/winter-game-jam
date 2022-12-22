@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     
     public GameStatus state = GameStatus.Title;
     //***残り時間関係***
-    [SerializeField] float _time = default;
+    [SerializeField] float _time = 180f;
     [SerializeField] Text _timeText = default;
 
     //***プレイヤーのUI切替関係***

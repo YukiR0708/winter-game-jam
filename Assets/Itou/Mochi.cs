@@ -20,6 +20,8 @@ public class Mochi : MonoBehaviour
     Vector3 _volocity;
     /// <summary>True‚ÌP1,False‚ÌP2</summary>
     public bool Player { get => _player; set => _player = value; }
+    int _mochiOrder;
+    public int MochiOrder { get => _mochiOrder; set => _mochiOrder = value; }
     void Start()
     {
         FindObjectOfType<Pause>().PauseAction += PauseKun;
@@ -32,7 +34,6 @@ public class Mochi : MonoBehaviour
     }
     void Update()
     {
-        _time += Time.deltaTime * _speed;
         if (!_otosu)
         {
             LRMove();
@@ -83,6 +84,7 @@ public class Mochi : MonoBehaviour
     /// <summary>¶‰EˆÚ“®‚·‚éŒN</summary>
     void LRMove()
     {
+        _time += Time.deltaTime * _speed;
         float sin = Mathf.Sin(_time);
         this.transform.position = new Vector3(sin * _distance, this.gameObject.transform.position.y);
     }
