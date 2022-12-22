@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MochiInstate : MonoBehaviour
 {
     [SerializeField, Header("出す餅の合計数")] int _mochiNum;
-    GameObject[] _mochi;
+    [SerializeField] GameObject[] _mochi;
     List<GameObject> _mochis = new List<GameObject>();
     [SerializeField, Header("1Pの餅の出現場所・協力のときはこの出現場所だけ使う")] Transform _onePpos;
     [SerializeField, Header("2Pの餅の出現場所")] Transform _twoPpos;
+    //[SerializeField, Header("残りのお餅が何個かどうかのUIText")] Text _mochiCountText;
     /// <summary>出す餅のインデックス</summary>
     int _index = 0;
     /// <summary>出す餅のインデックス</summary>
@@ -35,6 +37,7 @@ public class MochiInstate : MonoBehaviour
         }
         _index = 0;
         _index2 = 0;
+        //_mochiCountText.text = $"{_mochiNum}";
     }
 
     private void Update()
@@ -52,7 +55,9 @@ public class MochiInstate : MonoBehaviour
         IsMochiIn = true;
         _index++;
         Mochi mochi = go.GetComponent<Mochi>();
+        //mochi.
         mochi.Player = !mochi.Player;
+        _gameManager.PlayerChange(mochi.Player);
         return go;
     }
 
@@ -62,4 +67,6 @@ public class MochiInstate : MonoBehaviour
         _index2++;
         return go;
     }
+
+    
 }
