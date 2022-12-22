@@ -36,6 +36,7 @@ public class StackMochiManager : MonoBehaviour
 
     void Start()
     {
+        TakeListCount();
         //_stackmochiCountの値が変化したら呼ばれる
         _stackMochiCount.Subscribe(m =>
         {
@@ -58,6 +59,7 @@ public class StackMochiManager : MonoBehaviour
             _stackedMochiList.Add(_targetMochi);
             //リストに追加した最新の餅を_lastStackMochiに格納する
             _lastStackMochi = _targetMochi;
+            TakeListCount();
         }
     }
 
@@ -67,5 +69,10 @@ public class StackMochiManager : MonoBehaviour
         _targetMochi = _mochiInstate.OneP();
         _targetMochiRb = _targetMochi.GetComponent<Rigidbody2D>();
         _targetMochiMochi = _targetMochi.GetComponent<Mochi>();
+    }
+
+    public void TakeListCount()
+    {
+        _stackMochiCount.Value = _stackedMochiList.Count;
     }
 }
