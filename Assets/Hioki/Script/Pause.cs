@@ -5,6 +5,8 @@ using System;
 
 public class Pause : MonoBehaviour
 {
+    [SerializeField] GameObject _go;
+
     event Action _pause;
     event Action _resume;
 
@@ -16,6 +18,12 @@ public class Pause : MonoBehaviour
 
     /// <summary>ポーズ再開するときの動きを入れてもらう</summary>
     public Action ResumeAction { get => _resume; set => _resume = value; }
+
+    private void Start()
+    {
+        _isPause = false;
+        _go.SetActive(_isPause);
+    }
 
     private void Update()
     {
@@ -39,6 +47,7 @@ public class Pause : MonoBehaviour
         {
             _pause.Invoke();
             _isPause = true;
+            _go.SetActive(_isPause);
         }
     }
 
@@ -49,6 +58,7 @@ public class Pause : MonoBehaviour
         {
             _resume.Invoke();
             _isPause = false;
+            _go.SetActive(_isPause);
         }
     }
 }
