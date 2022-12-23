@@ -24,20 +24,19 @@ public class ResultManager : MonoBehaviour
         if (!_isShownResult)
         {
 
-            //if (_gameManager.state.HasFlag(GameManager.GameStatus.Clear))
-            //{
-            //    //クリアしたときのやつ
-            //    OrangeFall(_clear);
-            //}
-            //else
-            if (_gameManager.state.HasFlag(GameManager.GameStatus.Failed))
+            if (_gameManager.state.HasFlag(GameManager.GameStatus.Clear))
+            {
+                //クリアしたときのやつ
+                StartCoroutine(OrangeFall(_clear));
+            }
+            else if (_gameManager.state.HasFlag(GameManager.GameStatus.Failed))
             {
                 //失敗したときのやつ
-                OrangeFall(_failed);
+                StartCoroutine(OrangeFall(_failed));
             }
 
         }
-        
+
     }
 
     /// <summary>みかんが上から降ってくる</summary>
@@ -45,7 +44,7 @@ public class ResultManager : MonoBehaviour
     {
         _isShownResult = true;
         //一番上に積んであるもちを取ってきて、それの上に出現させる
-        GameObject orange = 
+        GameObject orange =
             Instantiate(_orange, new Vector2(StackMochiManager.Instance.LastStackMochi.transform.position.x, StackMochiManager.Instance.LastStackMochi.transform.position.y + _orangeRange), Quaternion.identity);
         //その後、そのもちの上にゆっくりとみかんが落ちていく
         yield return orange.transform.DOMoveY(-_orangeRange, 5).SetAutoKill().WaitForCompletion();
